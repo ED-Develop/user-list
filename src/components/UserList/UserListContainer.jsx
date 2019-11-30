@@ -1,13 +1,30 @@
 import React from 'react';
-import style from './UserList.module.css';
-import UserListItem from "./UserListItem/UserlistItem";
+import UserList from "./UserList";
+import {connect} from "react-redux";
+import {deleteUser, getUsers} from "../../Redux/userListReducer";
+import Preloader from "../common/Preloader/Preloader";
+import {toggleIsSuccess} from "../../Redux/appReducer";
 
-const UserList = () => {
-    return (
-        <div className={style.wrapper}>
-            <UserListItem/>
-        </div>
-    )
+class UserListContainer extends React.Component {
+    componentDidMount() {
+        this.props.getUsers();
+        this.props.toggleIsSuccess(false);
+    }
+    render() {
+        return (
+            <div>
+                {this.props.isFetching && <Preloader/>}
+                <UserList {...this.props}/>
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        users: state.userList.users,
+        isFetching: state.app.isFetching
+    }
 };
 
-export default UserList;
+export default connect(mapStateToProps, {getUsers, deleteUser, toggleIsSuccess})(UserListContainer);

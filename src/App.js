@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Header from "./components/Header/Header";
+import UserListContainer from "./components/UserList/UserListContainer";
+import {connect, Provider} from "react-redux";
+import store from "./Redux/store";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import UserContainer from "./components/User/UserContainer";
+import ModalWindow from "./components/common/ModalWindow/ModalWindow";
+import {setGlobalError, toggleIsFetching} from "./Redux/appReducer";
+import EditUser from "./components/EditUser/EditUser";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    hideModalWindow = () => {
+        this.props.setGlobalError(null);
+    };
+
+    render() {
+        const Modal = (<ModalWindow modalTitle='Global Error'
+                                    hideModalWindow={this.hideModalWindow}>
+            <p>Oops! Error: {this.props.globalError}.</p>
+        </ModalWindow>);
+        return (
+            <div className='appContainer'>
+                {this.props.globalError && Modal}
+                <Header/>
+                <Switch>
+                    <Route exact path='/' component={UserListContainer}/>
+                    <Route path='/user/:id?' component={UserContainer}/>
+                    <Route path='/edit/:id?' component={EditUser}/>
+                </Switch>
+            </div>
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        globalError: state.app.globalError
+    }
+};
+
+const AppContainer = connect(mapStateToProps, {setGlobalError, toggleIsFetching})(App);
+
+const UserListApp = () => {
+    return (
+        <div>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <AppContainer/>
+                </Provider>
+            </BrowserRouter>
+        </div>
+    )
+};
+
+export default UserListApp;

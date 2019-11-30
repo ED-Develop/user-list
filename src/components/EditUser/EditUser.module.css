@@ -1,0 +1,17 @@
+.container {
+    width: 100%;
+    max-width: 760px;
+    margin: auto;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+.container h1 {
+    text-align: center;
+    color: #2a5885;
+    padding-bottom: 15px;
+    border-bottom: 1px solid lightgray;
+    margin: 20px 40px 30px;
+}

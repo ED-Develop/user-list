@@ -1,0 +1,27 @@
+.container {
+    border-bottom: 1px solid lightgray;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    color: #4b4b4b;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+.row h2{
+    margin-top: 0;
+}
+.row a {
+    text-decoration: none;
+    color: #2a5885;
+}
+.row a:hover {
+    text-decoration: underline;
+}
+.delete {
+    font-size: 34px;
+    cursor: pointer;
+}
+.delete:hover {
+    color: red;
+}
