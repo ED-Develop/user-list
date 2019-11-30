@@ -1,0 +1,29 @@
+.header {
+    height: 50px;
+    background-color: #00a700;
+}
+.wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+.navBar {
+    text-align: center;
+    color: #fff;
+    height: 100%;
+    width: 140px;
+    border-left: 1px solid #535b68;
+    border-right: 1px solid #535b68;
+    line-height: 50px;
+    cursor: pointer;
+}
+.logo {
+    color: #fff;
+    font-size: 30px;
+}
+
+.navBar:hover {
+    background-color: #009100;
+}
